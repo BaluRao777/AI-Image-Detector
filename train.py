@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torchvision import  transforms, models
+from torchvision import datasets, transforms, models
 from torchvision.models import EfficientNet_B0_Weights
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
 import json
-from dataset_utils import RobustImageFolder
 
 # =========================
 # DEVICE (GPU SUPPORT 🔥)
@@ -55,7 +54,7 @@ val_transform = transforms.Compose([
                          [0.229, 0.224, 0.225])
 ])
 
-batch_size = 8
+batch_size = 32
 
 # 🚨 REQUIRED FOR WINDOWS
 def main():
@@ -63,8 +62,8 @@ def main():
     # =========================
     # DATASET
     # =========================
-    train_data = RobustImageFolder("data/train", transform=train_transform)
-    val_data   = RobustImageFolder("data/val", transform=val_transform)
+    train_data = datasets.ImageFolder("data/train", transform=train_transform)
+    val_data   = datasets.ImageFolder("data/val", transform=val_transform)
     # 🔥 ADD THIS HERE
     print("Classes:", train_data.classes)  #which class is ai and real
 
